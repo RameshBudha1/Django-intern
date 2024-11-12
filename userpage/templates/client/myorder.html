@@ -1,0 +1,85 @@
+{% extends "client/layouts.html" %}
+
+{% block page_title %}
+HamroKirana || MyOrder
+{% endblock %}
+
+{% block main_content %}
+<div class="bg-light py-5">
+  <div class="container">
+    {% for msg in messages %}
+    {% if msg.level == DEFAULT_MESSAGE_LEVELS.SUCCESS %}
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+      {{msg}}
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+    {% endif %}
+    {% endfor %}
+
+    {% if items|length < 1 %}
+    <div class="text-center py-5">
+      <div class="card border-0 shadow-sm p-5">
+        <i class="fas fa-shopping-bag fa-4x text-muted mb-4"></i>
+        <h3 class="text-muted mb-4">No orders yet</h3>
+        <p class="text-muted mb-4">Start shopping and your orders will appear here</p>
+        <a href="{% url 'productpage' %}" class="btn btn-success btn-lg rounded-pill px-5 hover-scale transition">
+          <i class="fas fa-shopping-cart me-2"></i>Start Shopping
+        </a>
+      </div>
+    </div>
+    {% else %}
+    <div class="card border-0 shadow-sm">
+      <div class="card-body p-4">
+        <h3 class="card-title text-center mb-4">Order History</h3>
+        <div class="table-responsive">
+          <table class="table align-middle">
+            <thead class="table-light">
+              <tr>
+                <th scope="col">Product</th>
+                <th scope="col">Name</th>
+                <th scope="col">Quantity</th>
+                <th scope="col">Total Price</th>
+                <th scope="col">Order Date</th>
+                <th scope="col">Payment</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for item in items %}
+              <tr>
+                <td>
+                  <img src="/{{item.products.product_image}}" 
+                       alt="{{item.products.product_name}}"
+                       class="rounded"
+                       style="height: 80px; width: 80px; object-fit: cover;">
+                </td>
+                <td class="fw-bold">{{item.products.product_name}}</td>
+                <td>{{item.quantity}}</td>
+                <td class="text-success fw-bold">Rs. {{item.total_price}}</td>
+                <td>{{item.order_date}}</td>
+                <td>
+                  <span class="badge bg-info rounded-pill">
+                    <i class="fas fa-credit-card me-1"></i>
+                    {{item.payment_method}}
+                  </span>
+                </td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    {% endif %}
+  </div>
+</div>
+
+<style>
+.hover-scale:hover {
+  transform: scale(1.05);
+  transition: all .3s ease;
+}
+.transition {
+  transition: all .3s ease;
+}
+</style>
+{% endblock %}

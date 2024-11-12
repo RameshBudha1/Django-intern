@@ -1,0 +1,41 @@
+{% extends 'index.html' %}
+
+{% load crispy_forms_tags %}
+
+{% block page_title %}
+Login-form
+{% endblock %}
+
+{% block main_content %}
+<div class="container">
+    <div class="d-flex justify-content-center mt-2 p-5">
+        <div class="col-md-5 my-3 p-5 shadow rounded-4">
+            <h2 class="text-center text-muted mb-5">
+                Login Form
+            </h2>
+            {% for msg in messages %}
+            {% if msg.level == DEFAULT_MESSAGE_LEVELS.SUCCESS %}
+            <div class="alert alert-success">
+                {{msg}}
+            </div>
+            {% endif %}
+            {%if msg.level == DEFAULT_MESSAGE_LEVELS.ERROR %}
+            <div class="alert alert-danger">
+                {{msg}}
+            </div>
+            {% endif %}
+            {% endfor %}
+            <form action="" method='POST'>
+                {% csrf_token %}
+                {{ form | crispy }}
+                <div class="mt-4 d-grid">
+                    <input type="submit" value="Login" class="btn btn-primary"/>
+                </div>
+            </form>
+            <hr>
+            <p class="text-center">Don't you have an account? <a href="{% url 'user_register' %}" class="text-decoration-none">register</a></p>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

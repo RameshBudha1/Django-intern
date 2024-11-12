@@ -1,0 +1,126 @@
+{% extends "index.html" %}
+{% load crispy_forms_tags %}
+
+{% block page_title %}
+Admin || Add-Products
+{% endblock %}
+
+{% block main_content %}
+<div class="container-fluid py-4">
+    <!-- Breadcrumb -->
+    <nav aria-label="breadcrumb" class="mb-4">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="{% url 'products' %}" class="text-decoration-none">Products</a></li>
+            <li class="breadcrumb-item active">Add Product</li>
+        </ol>
+    </nav>
+
+    <div class="card border-0 shadow-sm">
+        <div class="card-header bg-white py-3 border-0">
+            <h4 class="card-title text-center mb-0">Add New Product</h4>
+        </div>
+        
+        <div class="card-body p-4">
+            <div class="row justify-content-center">
+                <div class="col-lg-8">
+                    <!-- Alerts -->
+                    {% for msg in messages %}
+                    {% if msg.level == DEFAULT_MESSAGE_LEVELS.ERROR %}
+                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                        <i class="bi bi-exclamation-triangle me-2"></i>{{msg}}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                    {% endif %}
+                    {% endfor %}
+
+                    <!-- Form -->
+                    <form method="POST" enctype="multipart/form-data" id="productForm">
+                        {% csrf_token %}
+                        
+                        <!-- Image Preview -->
+                        <div class="mb-4 text-center d-none" id="imagePreview">
+                            <img src="" alt="Product Preview" class="img-fluid rounded" style="max-height: 200px">
+                        </div>
+                        
+                        {{ form|crispy }}
+                        
+                        <div class="card-footer bg-white px-0 pb-0 pt-4 border-0">
+                            <div class="d-flex gap-2 justify-content-between">
+                                <a href="{% url 'products' %}" class="btn btn-light">
+                                    <i class="bi bi-arrow-left me-2"></i>Back to Products
+                                </a>
+                                <button type="submit" class="btn btn-primary" id="submitBtn">
+                                    <i class="bi bi-plus-lg me-2"></i>Add Product
+                                    <span class="spinner-border spinner-border-sm d-none" id="loadingSpinner"></span>
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+.breadcrumb-item a {
+    color: #0d6efd;
+}
+.form-control:focus, .form-select:focus {
+    box-shadow: 0 0 0 0.25rem rgba(13,110,253,.25);
+    border-color: #86b7fe;
+}
+.card {
+    border-radius: 15px;
+    overflow: hidden;
+}
+.btn {
+    padding: 0.5rem 1.5rem;
+    font-weight: 500;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+}
+.btn:hover {
+    transform: translateY(-1px);
+}
+.btn-primary {
+    background: linear-gradient(45deg, #4e73df, #224abe);
+    border: none;
+}
+.btn-light {
+    background: #f8f9fa;
+    border: 1px solid #dee2e6;
+}
+</style>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Image preview
+    const imageInput = document.querySelector('input[type="file"]');
+    const imagePreview = document.getElementById('imagePreview');
+    const previewImg = imagePreview.querySelector('img');
+    
+    imageInput.addEventListener('change', function() {
+        const file = this.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                previewImg.src = e.target.result;
+                imagePreview.classList.remove('d-none');
+            }
+            reader.readAsDataURL(file);
+        }
+    });
+
+    // Form submission
+    const form = document.getElementById('productForm');
+    const submitBtn = document.getElementById('submitBtn');
+    const spinner = document.getElementById('loadingSpinner');
+
+    form.addEventListener('submit', function() {
+        submitBtn.disabled = true;
+        spinner.classList.remove('d-none');
+    });
+});
+</script>
+{% endblock %}

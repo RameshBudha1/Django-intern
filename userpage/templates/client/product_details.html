@@ -1,0 +1,73 @@
+{% extends "client/layouts.html" %}
+
+{% block page_title %}
+HamroKirana || {{product.product_name}}
+{% endblock %}
+
+{% block main_content %}
+<div class="bg-light py-5">
+  <div class="container">
+    <div class="card border-0 shadow-lg">
+      <div class="row g-0">
+        <!-- Product Image -->
+        <div class="col-md-6">
+          <div class="position-relative h-100">
+            <img src="/{{product.product_image}}" 
+                 class="img-fluid rounded-start h-100" 
+                 alt="{{product.product_name}}"
+                 style="object-fit: cover;">
+            <span class="position-absolute top-0 end-0 m-3 badge bg-success rounded-pill">New</span>
+          </div>
+        </div>
+
+        <!-- Product Details -->
+        <div class="col-md-6">
+          <div class="card-body p-5">
+            <nav aria-label="breadcrumb" class="mb-4">
+              <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="{% url 'homepage' %}" class="text-decoration-none">Home</a></li>
+                <li class="breadcrumb-item"><a href="{% url 'productpage' %}" class="text-decoration-none">Products</a></li>
+                <li class="breadcrumb-item active" aria-current="page">{{product.product_name}}</li>
+              </ol>
+            </nav>
+
+            <h1 class="card-title fw-bold mb-4">{{product.product_name}}</h1>
+            <h2 class="text-success fw-bold mb-4">Rs. {{product.product_price}}</h2>
+
+            <div class="mb-4">
+              <p class="card-text lead">{{product.product_description}}</p>
+            </div>
+
+            <div class="d-flex gap-4 mb-4">
+              <div>
+                <h6 class="text-muted mb-1">Category</h6>
+                <p class="fw-bold mb-0">{{product.category}}</p>
+              </div>
+              <div>
+                <h6 class="text-muted mb-1">Available Quantity</h6>
+                <p class="fw-bold mb-0">{{product.product_quantity}}</p>
+              </div>
+            </div>
+
+            <a href="{% url 'my_cart' product.id %}" class="text-decoration-none">
+              <button class="btn btn-warning btn-lg rounded-pill px-5 hover-scale transition">
+                <i class="fas fa-shopping-cart me-2"></i>Add to Cart
+              </button>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+.hover-scale:hover {
+  transform: scale(1.05);
+  transition: all .3s ease;
+}
+.transition {
+  transition: all .3s ease;
+}
+</style>
+{% endblock %}

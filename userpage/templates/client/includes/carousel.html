@@ -1,0 +1,103 @@
+{% load static %}
+
+<div id="heroCarousel" class="carousel slide carousel-fade" data-bs-ride="carousel">
+  <!-- Indicators -->
+  <div class="carousel-indicators">
+    <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="0" class="active"></button>
+    <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="1"></button>
+    <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="2"></button>
+  </div>
+
+  <div class="carousel-inner">
+    <div class="carousel-item active">
+      <div class="overlay"></div>
+      <img src="{% static 'images/fashion.jpeg' %}" class="d-block w-100" alt="Fashion">
+      <div class="carousel-caption">
+        <h1 class="display-4 fw-bold mb-4 animate__animated animate__fadeInDown">Latest Fashion</h1>
+        <p class="lead mb-4 animate__animated animate__fadeInUp">We will make you branded with our fashion. Let's be branded one..</p>
+        <a href="{% url 'productpage' %}" class="btn btn-lg btn-light rounded-pill hover-scale transition">
+          Shop Now <i class="fas fa-arrow-right ms-2"></i>
+        </a>
+      </div>
+    </div>
+
+    <div class="carousel-item">
+      <div class="overlay"></div>
+      <img src="{% static 'images/technology.jpeg' %}" class="d-block w-100" alt="Technology">
+      <div class="carousel-caption">
+        <h1 class="display-4 fw-bold mb-4 animate__animated animate__fadeInDown">Technology Gadgets</h1>
+        <p class="lead mb-4 animate__animated animate__fadeInUp">Different Technology Gadgets are available in our online stores</p>
+        <a href="{% url 'productpage' %}" class="btn btn-lg btn-light rounded-pill hover-scale transition">
+          Explore Gadgets <i class="fas fa-arrow-right ms-2"></i>
+        </a>
+      </div>
+    </div>
+
+    <div class="carousel-item">
+      <div class="overlay"></div>
+      <img src="{% static 'images/sports.jpeg' %}" class="d-block w-100" alt="Sports">
+      <div class="carousel-caption">
+        <h1 class="display-4 fw-bold mb-4 animate__animated animate__fadeInDown">Sports Collection</h1>
+        <p class="lead mb-4 animate__animated animate__fadeInUp">Let's play beautiful sports with us and be fit</p>
+        <a href="{% url 'productpage' %}" class="btn btn-lg btn-light rounded-pill hover-scale transition">
+          View Collection <i class="fas fa-arrow-right ms-2"></i>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Controls -->
+  <button class="carousel-control-prev" type="button" data-bs-target="#heroCarousel" data-bs-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Previous</span>
+  </button>
+  <button class="carousel-control-next" type="button" data-bs-target="#heroCarousel" data-bs-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Next</span>
+  </button>
+</div>
+
+<style>
+.carousel-item {
+  height: 100vh;
+  min-height: 400px;
+  position: relative;
+}
+
+.carousel-item img {
+  object-fit: cover;
+  height: 100%;
+}
+
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+}
+
+.carousel-caption {
+  bottom: 20%;
+  z-index: 2;
+}
+
+.hover-scale:hover {
+  transform: scale(1.05);
+  transition: all .3s ease;
+}
+
+.transition {
+  transition: all .3s ease;
+}
+
+@media (max-width: 768px) {
+  .carousel-item {
+    height: 70vh;
+  }
+  .carousel-caption {
+    bottom: 10%;
+  }
+}
+</style>

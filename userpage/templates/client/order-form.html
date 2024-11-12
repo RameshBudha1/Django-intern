@@ -1,0 +1,51 @@
+{% extends "client/layouts.html" %}
+{% load crispy_forms_tags %}
+
+{% block page_title %}
+HamroKirana || Order Form
+{% endblock %}
+
+{% block main_content %}
+<div class="bg-light py-5" style="min-height: 80vh">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-md-6">
+        <div class="card border-0 shadow-lg rounded-4">
+          <div class="card-body p-5">
+            <!-- Form Header -->
+            <div class="text-center mb-4">
+              <h2 class="fw-bold mb-2">Complete Your Order</h2>
+              <p class="text-muted">Please fill in your delivery details</p>
+            </div>
+
+            <!-- Order Form -->
+            <form method="POST" class="needs-validation" novalidate>
+              {% csrf_token %}
+              {{ form|crispy }}
+              
+              <div class="d-grid gap-2 mt-4">
+                <button type="submit" class="btn btn-primary btn-lg rounded-pill hover-scale transition">
+                  <i class="fas fa-check-circle me-2"></i>Place Order
+                </button>
+                <a href="{% url 'show_cart_items' %}" class="btn btn-outline-secondary rounded-pill hover-scale transition">
+                  <i class="fas fa-arrow-left me-2"></i>Back to Cart
+                </a>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+.hover-scale:hover {
+  transform: scale(1.02);
+  transition: all .3s ease;
+}
+.transition {
+  transition: all .3s ease;
+}
+</style>
+{% endblock %}

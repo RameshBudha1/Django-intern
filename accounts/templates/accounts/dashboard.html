@@ -1,0 +1,229 @@
+{% extends "index.html" %}
+
+{% block page_title %}
+Admin Dashboard
+{% endblock %}
+
+{% block main_content %}
+<div class="container-fluid py-4 bg-light">
+    <h2 class="text-center mb-4 fw-bold">Admin Dashboard</h2>
+    
+    <div class="row g-4">
+        <!-- Orders Card -->
+        <div class="col-md-6 col-xl-4">
+            <div class="card border-0 shadow-sm hover-shadow transition h-100 gradient-primary">
+                <div class="card-body p-4">
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <div class="icon-circle bg-white">
+                            <i class="fas fa-shopping-bag fa-2x text-primary"></i>
+                        </div>
+                        <h3 class="counter text-white">150</h3>
+                    </div>
+                    <h6 class="text-uppercase fw-bold mb-2 text-white">Total Orders</h6>
+                    <p class="text-white-50 mb-0">
+                        <span class="text-white me-2">
+                          {% if orders_growth > 0 %}
+                            <i class="fas fa-arrow-up"></i>
+                            {% else %}
+                            <i class="fas fa-arrow-down"></i>
+                            {% endif %}
+                            {{ orders_growth|floatformat:2 }}%
+                        </span>
+                        <span>Since last month</span>
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Users Card -->
+        <div class="col-md-6 col-xl-4">
+            <div class="card border-0 shadow-sm hover-shadow transition h-100 gradient-warning">
+                <div class="card-body p-4">
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <div class="icon-circle bg-white">
+                            <i class="fas fa-users fa-2x text-warning"></i>
+                        </div>
+                        <h3 class="counter text-white">{{ total_users }}</h3>
+                    </div>
+                    <h6 class="text-uppercase fw-bold mb-2 text-white">Total Users</h6>
+                    <p class="text-white-50 mb-0">
+                        <span class="text-white me-2">
+                          {% if users_growth > 0 %}
+                            <i class="fas fa-arrow-up"></i>
+                            {% else %}
+                            <i class="fas fa-arrow-down"></i>
+                            {% endif %}
+                            {{ users_growth|floatformat:2 }}%
+                        </span>
+                        <span>Since last month</span>
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Products Card -->
+        <div class="col-md-6 col-xl-4">
+            <div class="card border-0 shadow-sm hover-shadow transition h-100 gradient-success">
+                <div class="card-body p-4">
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <div class="icon-circle bg-white">
+                            <i class="fas fa-box fa-2x text-success"></i>
+                        </div>
+                        <h3 class="counter text-white">{{ total_products }}</h3>
+                    </div>
+                    <h6 class="text-uppercase fw-bold mb-2 text-white">Total Products</h6>
+                    <p class="text-white-50 mb-0">
+                        <span class="text-white me-2">
+                          {% if products_growth > 0 %}
+                            <i class="fas fa-arrow-up"></i>
+                            {% else %}
+                            <i class="fas fa-arrow-down"></i>
+                            {% endif %}
+                            {{ products_growth|floatformat:2 }}%
+                        </span>
+                        <span>Since last month</span>
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Revenue Card -->
+        <div class="col-md-6 col-xl-4">
+            <div class="card border-0 shadow-sm hover-shadow transition h-100 gradient-danger">
+                <div class="card-body p-4">
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <div class="icon-circle bg-white">
+                            <i class="fas fa-chart-line fa-2x text-danger"></i>
+                        </div>
+                        <h3 class="counter text-white">Rs. {{ total_revenue|floatformat:2 }}</h3>
+                    </div>
+                    <h6 class="text-uppercase fw-bold mb-2 text-white">Total Revenue</h6>
+                    <p class="text-white-50 mb-0">
+                        <span class="text-white me-2">
+                          {% if revenue_growth > 0 %}
+                            <i class="fas fa-arrow-up"></i>
+                            {% else %}
+                            <i class="fas fa-arrow-down"></i>
+                            {% endif %}
+                            {{ revenue_growth|floatformat:2 }}%
+                        </span>
+                        <span>Since last month</span>
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Admins Card -->
+        <div class="col-md-6 col-xl-4">
+            <div class="card border-0 shadow-sm hover-shadow transition h-100 gradient-info">
+                <div class="card-body p-4">
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <div class="icon-circle bg-white">
+                            <i class="fas fa-user-shield fa-2x text-info"></i>
+                        </div>
+                        <h3 class="counter text-white">{{ total_admins }}</h3>
+                    </div>
+                    <h6 class="text-uppercase fw-bold mb-2 text-white">Total Admins</h6>
+                    <p class="text-white-50 mb-0">
+                        <span class="text-white me-2"><i class="fas fa-arrow-up"></i> 1.25%</span>
+                        <span>Since last month</span>
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Categories Card -->
+        <div class="col-md-6 col-xl-4">
+            <div class="card border-0 shadow-sm hover-shadow transition h-100 gradient-dark">
+                <div class="card-body p-4">
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <div class="icon-circle bg-white">
+                            <i class="fas fa-th-large fa-2x text-dark"></i>
+                        </div>
+                        <h3 class="counter text-white">{{ total_categories }}</h3>
+                    </div>
+                    <h6 class="text-uppercase fw-bold mb-2 text-white">Categories</h6>
+                    <p class="text-white-50 mb-0">
+                        <span class="text-white me-2"><i class="fas fa-arrow-up"></i> 2.15%</span>
+                        <span>Since last month</span>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+.gradient-primary {
+    background: linear-gradient(45deg, #4e54c8, #8f94fb);
+}
+
+.gradient-warning {
+    background: linear-gradient(45deg, #f6d365, #fda085);
+}
+
+.gradient-success {
+    background: linear-gradient(45deg, #2ecc71, #26c6da);
+}
+
+.gradient-danger {
+    background: linear-gradient(45deg, #ff416c, #ff4b2b);
+}
+
+.gradient-info {
+    background: linear-gradient(45deg, #4facfe, #00f2fe);
+}
+
+.gradient-dark {
+    background: linear-gradient(45deg, #2c3e50, #3498db);
+}
+
+.icon-circle {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 0 0 10px rgba(255,255,255,0.1);
+}
+
+.hover-shadow:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 1rem 3rem rgba(0,0,0,.175)!important;
+    transition: all .3s ease;
+}
+
+.transition {
+    transition: all .3s ease;
+}
+
+.counter {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin: 0;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+}
+
+.card {
+    overflow: hidden;
+    border-radius: 15px;
+}
+
+.card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(255,255,255,0.1);
+    transform: translateX(-100%);
+    transition: .5s;
+}
+
+.card:hover::before {
+    transform: translateX(100%);
+}
+</style>
+{% endblock %}
