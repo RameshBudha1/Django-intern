@@ -7,6 +7,7 @@ from django.contrib import messages
 from .forms import OrderForm
 from .models import Order
 from .filters import ProductFilter
+import requests as req
 
 # Create your views here.
 
@@ -138,7 +139,6 @@ def show_order_items(request):
     }
     return render(request,"client/myorder.html",context)
 
-import requests as req
 def esewa_verify(request):
     import xml.etree.ElementTree as ET
     oid = request.GET.get('oid')

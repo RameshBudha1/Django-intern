@@ -1,0 +1,120 @@
+{% extends "index.html" %}
+
+{% block page_title %}
+Admin | Order #{{ order.id }}
+{% endblock %}
+
+{% block main_content %}
+<div class="container mt-4">
+    <!-- Header -->
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2 class="text-primary">
+            <i class="bi bi-receipt me-2"></i>Order #{{ order.id }}
+        </h2>
+        <a href="{% url 'orders' %}" class="btn btn-outline-secondary">
+            <i class="bi bi-arrow-left me-2"></i>Back to Orders
+        </a>
+    </div>
+
+    {% if messages %}
+    {% for message in messages %}
+    <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+        {{ message }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+    {% endfor %}
+    {% endif %}
+
+    <div class="row">
+        <!-- Order Details -->
+        <div class="col-md-8">
+            <div class="card shadow-sm mb-4">
+                <div class="card-header bg-light">
+                    <h5 class="card-title mb-0">Order Details</h5>
+                </div>
+                <div class="card-body">
+                    <div class="row mb-4">
+                        <div class="col-md-6">
+                            <h6>Customer Information</h6>
+                            <p class="mb-1">{{ order.user.get_full_name }}</p>
+                            <p class="mb-1">Phone: {{ order.contact_no }}</p>
+                            <p class="mb-1">Address: {{ order.address }}</p>
+                        </div>
+                        <div class="col-md-6 text-md-end">
+                            <h6>Order Information</h6>
+                            <p class="mb-1">Date: {{ order.order_date|date:"M d, Y H:i" }}</p>
+                            <p class="mb-1">Payment: {{ order.payment_method }}</p>
+                            <p class="mb-1">Payment Status: 
+                                <span class="badge {% if order.payment_status %}bg-success{% else %}bg-warning{% endif %}">
+                                    {{ order.payment_status|yesno:"Paid,Pending" }}
+                                </span>
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Product Details -->
+                    <h6>Product Details</h6>
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Product</th>
+                                    <th class="text-center">Quantity</th>
+                                    <th class="text-end">Price</th>
+                                    <th class="text-end">Total</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>{{ order.products.name }}</td>
+                                    <td class="text-center">{{ order.quantity }}</td>
+                                    <td class="text-end">${{ order.products.price }}</td>
+                                    <td class="text-end">${{ order.total_price }}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Order Status -->
+        <div class="col-md-4">
+            <div class="card shadow-sm">
+                <div class="card-header bg-light">
+                    <h5 class="card-title mb-0">Order Status</h5>
+                </div>
+                <div class="card-body">
+                    <div class="mb-3">
+                        <h6>Current Status</h6>
+                        <span class="badge {% if order.status == 'Pending...' %}bg-warning
+                                          {% elif 'Complete' in order.status %}bg-success
+                                          {% elif 'Cancel' in order.status %}bg-danger
+                                          {% else %}bg-info{% endif %} fs-6">
+                            {{ order.status }}
+                        </span>
+                    </div>
+
+                    <form method="POST">
+                        {% csrf_token %}
+                        <div class="mb-3">
+                            <label class="form-label">Update Status</label>
+                            <select name="status" class="form-select" required>
+                                <option value="">Select Status</option>
+                                <option value="Pending...">Pending</option>
+                                <option value="Processing">Processing</option>
+                                <option value="Shipped">Shipped</option>
+                                <option value="Completed">Completed</option>
+                                <option value="Cancelled">Cancelled</option>
+                            </select>
+                        </div>
+                        <button type="submit" class="btn btn-primary w-100">
+                            Update Status
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
