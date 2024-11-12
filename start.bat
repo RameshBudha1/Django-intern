@@ -1,2 +1,2 @@
-call workon .venv
+call ".venv\scripts\activate"
 python manage.py runserver
