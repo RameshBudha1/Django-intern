@@ -34,12 +34,17 @@ or in windows powershell
 pip install -r requirements.txt
 ```
 
-6. Run the server
+6. Migrate the database
+```bash
+python manage.py migrate
+```
+
+7. Run the server
 ```bash
 python manage.py runserver
 ```
 
-7. Visit the following URL
+8. Visit the following URL
 ```
 http://127.0.0.1:8000/
 ```

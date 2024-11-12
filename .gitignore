@@ -145,3 +145,4 @@ dmypy.json
 ################
 public/
 static/
+!userpage/static/images/*.jpeg
