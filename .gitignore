@@ -6,7 +6,6 @@
 *.pyc
 __pycache__/
 local_settings.py
-db.sqlite3
 media
 
 # Backup files #
@@ -144,5 +143,3 @@ dmypy.json
 # StaticFiles #
 ################
 public/
-static/
-!userpage/static/images/*.jpeg
